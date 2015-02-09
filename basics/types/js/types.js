@@ -163,7 +163,7 @@ document.writeln("<br>");
 
 arr1.push("three");
 
-document.writeln("arr1.push(\"three\");")
+document.writeln("arr1.push(\"three\");");
 document.writeln("<br>");
 document.writeln("arr1 is " + arr1);
 document.writeln("<br>");
@@ -191,7 +191,7 @@ document.writeln("<br>");
 var defFunc = function() {
     return function() {
         document.writeln("TWO");
-    }
+    };
 };
 
 document.writeln("var defFunc = function() {");
