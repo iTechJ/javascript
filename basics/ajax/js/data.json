@@ -1,0 +1,18 @@
+[
+    {
+        "product": "Apple iPhone 6",
+        "price": "760$"
+    }, {
+        "product": "Sony Xperia Z3",
+        "price": "670$"
+    }, {
+        "product": "Nokia Lumia 930",
+        "price": "430$"
+    }, {
+        "product": "HTC One (M8)",
+        "price": "580$"
+    }, {
+        "product": "Samsung Galaxy S5",
+        "price": "630$"
+    }
+]
