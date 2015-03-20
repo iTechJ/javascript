@@ -1,6 +1,6 @@
 var rpAjax = {};
 
-rpAjax.get = function(path, callback) {
+rpAjax.get = function(path, callback, cached) {
     var xmlHttp;
     if (window.XMLHttpRequest) {
         /**
@@ -14,6 +14,8 @@ rpAjax.get = function(path, callback) {
         xmlHttp=new ActiveXObject("Microsoft.XMLHTTP");
     }
 
+
+
     xmlHttp.onreadystatechange = function() {
         if (xmlHttp.readyState==4 && xmlHttp.status==200) {
             callback(xmlHttp);
@@ -21,7 +23,12 @@ rpAjax.get = function(path, callback) {
         }
     };
 
-    xmlHttp.open("GET", path, true);
+    xmlHttp.open("GET",
+        cached ? path : path + "?_c=" + Math.random(),
+        true);
+
+    xmlHttp.setRequestHeader("Content-type", "application/json");
+    xmlHttp.responseType = "json";
     xmlHttp.send();
 };
 
