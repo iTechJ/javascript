@@ -12,7 +12,7 @@ Fish.prototype.addSpice= function(ingredient) {
     if(ingredient instanceof Ingredient) {
         this._spice.push(ingredient);
     }
-}
+};
 
 Fish.prototype.calcPrice = function() {
     "use strict";
@@ -25,8 +25,8 @@ Fish.prototype.calcPrice = function() {
     }
 
     return Fish.superclass.calcPrice.call(this) + total;
-}
+};
 
 Fish.prototype.toString = function() {
     return Fish.superclass.toString.call(this) + ", " + this.esculent? "esculent": "not esculent";
-}
+};

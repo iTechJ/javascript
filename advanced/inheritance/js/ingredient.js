@@ -12,6 +12,6 @@ Ingredient.prototype = {
     },
 
     toString: function () {
-        return this.name + " costs: " + this.price
+        return this.name + " costs: " + this.price;
     }
-}
+};

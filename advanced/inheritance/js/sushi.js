@@ -47,4 +47,4 @@ Sushi.prototype = {
         "use strict";
         return "Sushi costs " + this.getTotalPrice();
     }
-}
+};
