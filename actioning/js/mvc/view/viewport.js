@@ -1,9 +1,16 @@
 /* jshint strict: true */
 /* globals rpApp */
 
-rpApp.Viewport = function(views) {
+rpApp.Viewport = function(settings) {
     "use strict";
-    this.views = views ? views : [];
+
+    var defaults = {
+        "class": "rp-viewport",
+        "views": []
+    };
+
+    this.settings = rpApp.mergeLeft(defaults, settings);
+
 };
 
 rpApp.extend(rpApp.Viewport, rpApp.BaseComponent);
@@ -11,6 +18,8 @@ rpApp.extend(rpApp.Viewport, rpApp.BaseComponent);
 rpApp.Viewport.prototype.render = function() {
     "use strict";
     var container = document.createElement("DIV");
+
+    container.setAttribute("")
     
     /*
         TODO: iterate through the views and add them to the container
