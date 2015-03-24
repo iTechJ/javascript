@@ -1,14 +1,13 @@
 /* jshint strict: true */
 /* globals rpApp */
 
-rpApp.Viewport = function(settings) {
+rpApp.View = function(settings) {
     "use strict";
 
     var defaults = {
         "class": "rp-viewport",
         "id": "rpViewport",
-        "views": [
-        ]
+
     };
 
     this.settings = rpApp.mergeLeft(defaults, settings);
@@ -31,7 +30,7 @@ rpApp.Viewport.prototype.render = function() {
 
     document.body.innerHTML = "";
     document.body.appendChild(viewport);
-    
+
 
 
     // return Fish.superclass.toString.call(this) + ", " + this.esculent? "esculent": "not esculent";

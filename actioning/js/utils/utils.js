@@ -19,7 +19,13 @@ rpApp.extend = function(Child, Parent) {
 
 rpApp.mergeLeft = function(first, second) {
     "use strict";
+
+    if(!second) {
+        return first;
+    }
+
     var o = {};
+
     for (var property in first) {
         if (first.hasOwnProperty(property)) {
             o[property] = second[property] ? second[property] : first[property];

@@ -1,0 +1,19 @@
+/* Viewport styling */
+html, body {
+    background-color: #E9E9E9;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+}
+.rp-viewport {
+    padding: 20px;
+    color: #666;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-bottom: 3px solid #ddd;
+    position: absolute;
+    top: 20px;
+    bottom: 20px;
+    right: 20px;
+    left: 20px;
+}

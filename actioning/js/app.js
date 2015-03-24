@@ -3,7 +3,8 @@
 
 window.onload = function() {
     "use strict";
-    rpApp.ajax({
-        url: "data.json"
-    });
+//    rpApp.ajax({
+//        url: "data.json"
+//    });
+    var viewPort = new rpApp.Viewport();
 };

@@ -11,7 +11,7 @@ rpApp.BaseComponent.prototype = {
     
     render: function() {
         "use strict";
-        return TODO;
+        throw "Component needs implementation!";
     }
 
 };
