@@ -3,6 +3,10 @@
 
 rpApp.BaseComponent = function() {
     "use strict";
+    //todo: fix it;
+    var defaults = {
+        "type": ""
+    }
     
 };
 

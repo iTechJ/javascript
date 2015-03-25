@@ -31,8 +31,7 @@ rpApp.Viewport.prototype.render = function() {
 
     document.body.innerHTML = "";
     document.body.appendChild(viewport);
-    
-
 
     // return Fish.superclass.toString.call(this) + ", " + this.esculent? "esculent": "not esculent";
 };
+

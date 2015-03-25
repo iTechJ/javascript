@@ -3,8 +3,14 @@
 
 window.onload = function() {
     "use strict";
+
 //    rpApp.ajax({
 //        url: "data.json"
 //    });
-    var viewPort = new rpApp.Viewport();
+
+    rpApp.launch({
+        name: "My MVC application",
+        namespace: "itechart.mvc.project"
+    });
+
 };
