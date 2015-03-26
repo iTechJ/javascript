@@ -11,14 +11,14 @@ rpApp.Viewport = function(settings) {
         ]
     };
 
-    this.settings = rpApp.mergeLeft(defaults, settings);
-    this.render();
+    rpApp.Viewport.superclass.constructor.call(this, defaults, settings);
 };
 
 rpApp.extend(rpApp.Viewport, rpApp.BaseComponent);
 
 rpApp.Viewport.prototype.render = function() {
     "use strict";
+    
     var viewport = document.createElement("DIV");
 
     viewport.id = this.settings.id;
@@ -29,7 +29,7 @@ rpApp.Viewport.prototype.render = function() {
      each element is configured, and should be rendered based on this configuration.
      */
 
-    rpApp.create("BookList", {});
+    // rpApp.create("BookList", {});
 
     document.body.innerHTML = "";
     document.body.appendChild(viewport);

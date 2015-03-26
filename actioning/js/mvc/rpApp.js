@@ -20,10 +20,11 @@ var rpApp = (function () {
 
         rpApp.globals = rpApp.mergeLeft(defaults, globals);
         ns = namespace(window, rpApp.globals.namespace.split("."));
-        ns.viewport = new rpApp.Viewport(viewport);
+        ns.viewport = create("Viewport");
     }
 
     function define(name, settings) {
+        
 //        if(rpApp.globals.namespace[settings.extend]) {//todo: fix it;
 //        } throw "rpApp.define: no component is defined!";
 
@@ -31,7 +32,10 @@ var rpApp = (function () {
         //todo: check for uniqueness of id, name...
         ns[name] = function() {
             "use strict";
-            console.log(settings);
+
+            var _wd = rpApp[type] ? rpApp[type][name] : rpApp[name];
+            ns[name] = _wd[settings.extend](settings);
+
 //            this.__proto__.constructor.superclass.constructor.call(this, settings);
 //            var defaults = {
 //                "class": "rp-viewport",
@@ -48,21 +52,19 @@ var rpApp = (function () {
         //todo: add new features
     }
 
-    function create(name, settings) {
-        //TODO: add check for native widgets;
-        var _object = ns[name];
+    function create(name, settings, type) {
+        var _object = typeof ns[name] === "function" ? ns[name] : (rpApp[type] ? rpApp[type][name] : rpApp[name]);
         if(!_object) throw "rpApp.create: invalid name";
-        return new _object[name](settings);
+        return new _object(settings);
     }
 
     function mergeLeft(first, second) {
         "use strict";
-
+        var o = {};
+    
         if(!second) {
             return first;
         }
-
-        var o = {};
 
         for (var property in first) {
             if (first.hasOwnProperty(property)) {
@@ -89,8 +91,16 @@ var rpApp = (function () {
         "define": define,
         "launch": launch
     };
+
 })();
 
+rpApp.model = {};
+rpApp.view = {
+    "components": {}
+};
+rpApp.controller = {};
+
+    
 rpApp.callback = function Callback(fn, scope, parameters) {
     "use strict";
     this.fn = fn;

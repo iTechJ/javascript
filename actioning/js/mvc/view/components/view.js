@@ -1,7 +1,7 @@
 /* jshint strict: true */
 /* globals rpApp */
 
-rpApp.View = function(settings) {
+rpApp.view.View = function(settings) {
     "use strict";
 
     var defaults = {

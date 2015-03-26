@@ -1,13 +1,11 @@
 /* jshint strict: true */
 /* globals rpApp */
 
-rpApp.BaseComponent = function() {
+rpApp.BaseComponent = function(defaults, settings) {
     "use strict";
-    //todo: fix it;
-    var defaults = {
-        "type": ""
-    }
-    
+
+    this.settings = rpApp.mergeLeft(defaults, settings);
+    this.render();
 };
 
 rpApp.BaseComponent.prototype = {

@@ -1,4 +1,5 @@
 rpApp.define("BookList", {
-        extends: "view.components.view"
+        extends: "View",
+        type: "view"
     }
 );
