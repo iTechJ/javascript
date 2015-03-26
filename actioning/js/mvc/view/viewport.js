@@ -29,6 +29,8 @@ rpApp.Viewport.prototype.render = function() {
      each element is configured, and should be rendered based on this configuration.
      */
 
+    rpApp.create("BookList", {});
+
     document.body.innerHTML = "";
     document.body.appendChild(viewport);
 

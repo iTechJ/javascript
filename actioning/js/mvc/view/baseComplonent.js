@@ -12,10 +12,9 @@ rpApp.BaseComponent = function() {
 
 rpApp.BaseComponent.prototype = {
     constructor: rpApp.BaseComponent,
-    
+
     render: function() {
         "use strict";
         throw "Component needs implementation!";
     }
-
 };
