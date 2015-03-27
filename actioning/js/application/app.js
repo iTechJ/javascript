@@ -5,15 +5,15 @@ window.onload = function() {
     "use strict";
 
     var viewport = {
-        id: "myApp",
-        views: [
-            "BookList"
+        "id": "myApp",
+        "namespace": "itechart.mvc.project",
+        "views": [
+            "itechart.mvc.project.view.BookList"
         ]
     };
 
     rpApp.launch({
-        "name": "My MVC application",
-        "namespace": "itechart.mvc.project"
+        "name": "My MVC application"
     }, viewport);
 
 };

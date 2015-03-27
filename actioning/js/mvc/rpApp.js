@@ -1,65 +1,71 @@
 var rpApp = (function () {
     "use strict";
-    var ns;
 
-    function launch(globals, viewport){
-        "use strict";
-
-        function namespace(aggr, parts) {
+    function namespace(ns) {
+        function aux(aggr, parts){
             if(!parts || parts.length == 0) {
                 return aggr;
             }
             aggr[parts[0]] = aggr[parts[0]] || {};
-            return namespace(aggr[parts[0]], parts.slice(1));
+            return aux(aggr[parts[0]], parts.slice(1));
         }
+        return aux(window, ns.split("."));
+    }
+
+    function set(name, value, safely) {
+        var widgetIndex = name.lastIndexOf("."),
+            widgetName = name.substr(widgetIndex + 1),
+            widgetNs = name.substring(0, widgetIndex),
+            ns = namespace(widgetNs);
+
+        if(safely && Object.getOwnPropertyNames(ns).length !== 0) "rpApp.define: name " + name + " is already in use";
+
+        ns[widgetName] = value;
+    }
+
+//    function get(name) {
+//        var parts = name.split(".");
+//
+//        for (var i = 0, len = parts.length, obj = window; i < len; i++) {
+//
+//            obj = obj[parts[i]];
+//            console.log(parts[i]);
+//            console.log(obj);
+//        }
+//        return obj;
+//    }
+
+    function launch(globals, viewport){
 
         var defaults = {
-            "name": "rpApp application",
-            "namespace": ""
-        };
+                "name": "rpApp application",
+                "namespace": ""
+            },
+            ns = namespace(viewport.namespace);
 
         rpApp.globals = rpApp.mergeLeft(defaults, globals);
-        ns = namespace(window, rpApp.globals.namespace.split("."));
-        ns.viewport = create("Viewport");
+        ns.viewport = new rpApp.Viewport(viewport);
     }
 
     function define(name, settings) {
-        
-//        if(rpApp.globals.namespace[settings.extend]) {//todo: fix it;
-//        } throw "rpApp.define: no component is defined!";
+        set(name, namespace(settings.extends)(), true);
 
-        if (ns[name]) throw "rpApp.define: name " + name + " is already in use";
-        //todo: check for uniqueness of id, name...
-        ns[name] = function() {
-            "use strict";
-
-            var _wd = rpApp[type] ? rpApp[type][name] : rpApp[name];
-            ns[name] = _wd[settings.extend](settings);
-
+//        //todo: check for uniqueness of id, name...
 //            this.__proto__.constructor.superclass.constructor.call(this, settings);
-//            var defaults = {
-//                "class": "rp-viewport",
-//                "id": "rpViewport",
-//                "views": [
-//                ]
-//            };
 //            this.settings = rpApp.mergeLeft(defaults, settings);
 //            this.render();
-
-        };
 
         //TODO: apply things, which make widget unique;
         //todo: add new features
     }
 
-    function create(name, settings, type) {
-        var _object = typeof ns[name] === "function" ? ns[name] : (rpApp[type] ? rpApp[type][name] : rpApp[name]);
-        if(!_object) throw "rpApp.create: invalid name";
-        return new _object(settings);
+    function create(name) {
+        var _object = namespace(name);
+        if(!_object) throw "rpApp.create: invalid name: " + name;
+        return new _object();
     }
 
     function mergeLeft(first, second) {
-        "use strict";
         var o = {};
     
         if(!second) {
@@ -75,7 +81,6 @@ var rpApp = (function () {
     }
 
     function extend(Child, Parent) {
-        "use strict";
         var F = function () { };
         F.prototype = Parent.prototype;
 
