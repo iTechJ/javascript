@@ -41,12 +41,13 @@ var rpApp = (function () {
         //todo: check for uniqueness of id, name...
         //TODO: apply things, which make widget unique;
         //todo: add new features
-
-        var t = set(name, function(){
+        console.log(name);
+        console.log(settings);
+        var ext = set(name, function() {
             this.__proto__.constructor.superclass.constructor.call(this, settings);
         });
 
-        rpApp.extend(t, namespace(settings.extends));
+        rpApp.extend(ext, namespace(settings.extends));
 
     }
 
@@ -79,7 +80,7 @@ var rpApp = (function () {
         Child.prototype.constructor = Child;
         Child.superclass = Parent.prototype;
     }
-
+    
     return {
         "extend": extend,
         "mergeLeft": mergeLeft,
@@ -103,6 +104,23 @@ rpApp.callback = function Callback(fn, scope, parameters) {
     this.fn = fn;
     this.scope = scope;
     this.parameters = parameters;
+};
+
+Element.prototype.hasClassName = function(name) {
+    return new RegExp("(?:^|\\s+)" + name + "(?:\\s+|$)").test(this.className);
+};
+
+Element.prototype.addClassName = function(name) {
+    if (!this.hasClassName(name)) {
+        this.className = this.className ? [this.className, name].join(' ') : name;
+    }
+};
+
+Element.prototype.removeClassName = function(name) {
+    if (this.hasClassName(name)) {
+        var c = this.className;
+        this.className = c.replace(new RegExp("(?:^|\\s+)" + name + "(?:\\s+|$)", "g"), "");
+    }
 };
 
 var TODO = "Not implemented yet";

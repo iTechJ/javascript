@@ -11,6 +11,8 @@ rpApp.Viewport = function(settings) {
         "views": [
         ]
     };
+    
+    this.views = {};
 
     rpApp.Viewport.superclass.constructor.call(this, defaults, settings);
 };
@@ -20,7 +22,8 @@ rpApp.extend(rpApp.Viewport, rpApp.BaseComponent);
 rpApp.Viewport.prototype.render = function() {
     "use strict";
     
-    var viewport = document.createElement("div"),
+    var self = this, 
+        viewport = document.createElement("div"),
         header = document.createElement("h1"),
         views = this.settings.views,
         i, lth;
@@ -39,8 +42,8 @@ rpApp.Viewport.prototype.render = function() {
     /* iterates through view list and adds them to container */
     for(i = 0, lth = views.length; i < lth; i++) {
         var obj = rpApp.create(views[i]);
-        viewport.appendChild(obj.render());
-        obj.fold();//todo: remove;
+        // viewport.appendChild(obj.render());
+        self.views[obj.settings.id] = obj;
     }
 
     // rpApp.create("BookList", {});

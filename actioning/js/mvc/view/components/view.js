@@ -6,9 +6,9 @@ rpApp.view.components.View = function(settings) {
 
     var defaults = {
         "class": "rp-view",
-        "id": "view"
+        "id": "view",
+        "period": 30
     };
-
     rpApp.view.components.View.superclass.constructor.call(this, defaults, settings);
 
 };
@@ -22,8 +22,9 @@ rpApp.view.components.View.prototype.render = function() {
     view.id = this.settings.id;
     view.setAttribute("class", this.settings.class);
 
-    view.style.width= '100%';
-    view.style.height = '100%';
+    view.style.width= "100%";
+    view.style.height = "100%";
+    view.style.opacity = "1.0";
 
     this.html = view;
     return view;
@@ -54,7 +55,7 @@ rpApp.view.components.View.prototype.fold = function(){
                 clearInterval(foldAnimation);
                 self.unFold();
             }
-        }, 10);
+        }, self.settings.period);
 };
 
 rpApp.view.components.View.prototype.unFold = function(){
@@ -81,5 +82,32 @@ rpApp.view.components.View.prototype.unFold = function(){
             } else {
                 clearInterval(unFoldAnimation);
             }
-        }, 10);
+        }, self.settings.period);
+};
+
+rpApp.view.components.View.prototype.fadeOut = function(){
+    var self = this,
+        fadeOutAnimation = setInterval(function(){
+            var opacity = parseFloat(self.html.style.opacity);
+
+            if(opacity > 0) {
+                self.html.style.opacity = opacity - 0.1;
+            } else {
+                clearInterval(fadeOutAnimation);
+                self.fadeIn();
+            }
+        }, self.settings.period);
+};
+
+rpApp.view.components.View.prototype.fadeIn = function(){
+    var self = this,
+        fadeInAnimation = setInterval(function(){
+            var opacity = parseFloat(self.html.style.opacity);
+
+            if(opacity >= 1) {
+                clearInterval(fadeInAnimation);
+            } else {
+                self.html.style.opacity = opacity + 0.1;
+            }
+        }, self.settings.period);
 };

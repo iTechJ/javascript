@@ -9,7 +9,8 @@ window.onload = function() {
         "title": "Book store",
         "namespace": "itechart.mvc.project",
         "views": [
-            "itechart.mvc.project.view.BookList"
+            "itechart.mvc.project.view.BookList",
+            "itechart.mvc.project.view.BookDetails"
         ]
     };
 
