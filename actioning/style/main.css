@@ -6,18 +6,30 @@ html, body {
     margin: 0;
 }
 .rp-viewport {
-    padding: 20px;
+    padding: 40px 20px 20px 20px;
     color: #666;
     background: #fff;
     border: 1px solid #ddd;
     border-bottom: 3px solid #ddd;
     position: absolute;
-    top: 20px;
-    bottom: 20px;
-    right: 20px;
-    left: 20px;
+    top: 10px;
+    bottom: 10px;
+    right: 10px;
+    left: 10px;
+}
+.rp-viewport h1 {
+    margin: 0;
+    position: absolute;
+    top: 0px;
+    background-color: #565656;
+    color: transparent;
+    text-shadow: 0px 2px 3px rgba(255,255,255,0.5);
+    -webkit-background-clip: text;
+    -moz-background-clip: text;
+    background-clip: text;
 }
 .rp-view {
-    border: red 1px solid;
-    padding: 100px;
+    border: solid 1px #ddd;
+    box-shadow: inset 0px 0px 10px rgba(0,0,0,0.5);
+    /*height: 100%;*/
 }

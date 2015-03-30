@@ -21,19 +21,9 @@ var rpApp = (function () {
         if(safely && Object.getOwnPropertyNames(ns).length !== 0) "rpApp.define: name " + name + " is already in use";
 
         ns[widgetName] = value;
-    }
 
-//    function get(name) {
-//        var parts = name.split(".");
-//
-//        for (var i = 0, len = parts.length, obj = window; i < len; i++) {
-//
-//            obj = obj[parts[i]];
-//            console.log(parts[i]);
-//            console.log(obj);
-//        }
-//        return obj;
-//    }
+        return ns[widgetName];
+    }
 
     function launch(globals, viewport){
 
@@ -48,15 +38,16 @@ var rpApp = (function () {
     }
 
     function define(name, settings) {
-        set(name, namespace(settings.extends)(), true);
-
-//        //todo: check for uniqueness of id, name...
-//            this.__proto__.constructor.superclass.constructor.call(this, settings);
-//            this.settings = rpApp.mergeLeft(defaults, settings);
-//            this.render();
-
+        //todo: check for uniqueness of id, name...
         //TODO: apply things, which make widget unique;
         //todo: add new features
+
+        var t = set(name, function(){
+            this.__proto__.constructor.superclass.constructor.call(this, settings);
+        });
+
+        rpApp.extend(t, namespace(settings.extends));
+
     }
 
     function create(name) {
@@ -100,6 +91,7 @@ var rpApp = (function () {
 })();
 
 rpApp.model = {};
+
 rpApp.view = {
     "components": {}
 };

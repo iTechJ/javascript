@@ -6,6 +6,7 @@ rpApp.Viewport = function(settings) {
 
     var defaults = {
         "class": "rp-viewport",
+        "title": "",
         "id": "rpViewport",
         "views": [
         ]
@@ -19,21 +20,28 @@ rpApp.extend(rpApp.Viewport, rpApp.BaseComponent);
 rpApp.Viewport.prototype.render = function() {
     "use strict";
     
-    var viewport = document.createElement("DIV"),
+    var viewport = document.createElement("div"),
+        header = document.createElement("h1"),
         views = this.settings.views,
         i, lth;
 
+    /*adding viewport styles/attributes */
     viewport.id = this.settings.id;
     viewport.setAttribute("class", this.settings.class);
 
-    for(i = 0, lth = views.length; i < lth; i++) {
-        rpApp.create(views[i]);
+    /*adding app header styles/attributes*/
+    if(this.settings.title) {
+        header.innerText = this.settings.title;
+        header.textContent = this.settings.title;
     }
+    viewport.appendChild(header);
 
-    /*
-     TODO: iterate through the views and add them to the container
-     each element is configured, and should be rendered based on this configuration.
-     */
+    /* iterates through view list and adds them to container */
+    for(i = 0, lth = views.length; i < lth; i++) {
+        var obj = rpApp.create(views[i]);
+        viewport.appendChild(obj.render());
+        obj.fold();//todo: remove;
+    }
 
     // rpApp.create("BookList", {});
 

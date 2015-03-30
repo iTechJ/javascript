@@ -4,6 +4,8 @@
 rpApp.BaseComponent = function(defaults, settings) {
     "use strict";
 
+    this.html;
+
     this.settings = rpApp.mergeLeft(defaults, settings);
     this.render();
 };

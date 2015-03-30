@@ -6,6 +6,7 @@ window.onload = function() {
 
     var viewport = {
         "id": "myApp",
+        "title": "Book store",
         "namespace": "itechart.mvc.project",
         "views": [
             "itechart.mvc.project.view.BookList"
