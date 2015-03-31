@@ -1,9 +1,10 @@
+/* jshint strict: true */
 var rpApp = (function () {
     "use strict";
 
     function namespace(ns) {
         function aux(aggr, parts){
-            if(!parts || parts.length == 0) {
+            if(!parts || parts.length === 0) {
                 return aggr;
             }
             aggr[parts[0]] = aggr[parts[0]] || {};
@@ -18,7 +19,9 @@ var rpApp = (function () {
             widgetNs = name.substring(0, widgetIndex),
             ns = namespace(widgetNs);
 
-        if(safely && Object.getOwnPropertyNames(ns).length !== 0) "rpApp.define: name " + name + " is already in use";
+        if(safely && Object.getOwnPropertyNames(ns).length !== 0) {
+            throw ("rpApp.define: name " + name + " is already in use");
+        }
 
         ns[widgetName] = value;
 
@@ -41,10 +44,9 @@ var rpApp = (function () {
         //todo: check for uniqueness of id, name...
         //TODO: apply things, which make widget unique;
         //todo: add new features
-        console.log(name);
-        console.log(settings);
         var ext = set(name, function() {
-            this.__proto__.constructor.superclass.constructor.call(this, settings);
+            Object.getPrototypeOf(this).constructor.superclass.constructor.call(this, settings);
+            //this.__proto__.constructor.superclass.constructor.call(this, settings);
         });
 
         rpApp.extend(ext, namespace(settings.extends));
@@ -52,9 +54,12 @@ var rpApp = (function () {
     }
 
     function create(name) {
-        var _object = namespace(name);
-        if(!_object) throw "rpApp.create: invalid name: " + name;
-        return new _object();
+        var Named = namespace(name);
+        if(!Named) {
+            throw "rpApp.create: invalid name: " + name;
+        }
+
+        return new Named();
     }
 
     function mergeLeft(first, second) {
@@ -107,16 +112,19 @@ rpApp.callback = function Callback(fn, scope, parameters) {
 };
 
 Element.prototype.hasClassName = function(name) {
+    "use strict";
     return new RegExp("(?:^|\\s+)" + name + "(?:\\s+|$)").test(this.className);
 };
 
 Element.prototype.addClassName = function(name) {
+    "use strict";
     if (!this.hasClassName(name)) {
         this.className = this.className ? [this.className, name].join(' ') : name;
     }
 };
 
 Element.prototype.removeClassName = function(name) {
+    "use strict";
     if (this.hasClassName(name)) {
         var c = this.className;
         this.className = c.replace(new RegExp("(?:^|\\s+)" + name + "(?:\\s+|$)", "g"), "");

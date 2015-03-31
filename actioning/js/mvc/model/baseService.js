@@ -17,27 +17,31 @@ rpApp.ajax = function(settings) {
             "cached": true
         },
         applySettings = rpApp.mergeLeft(defaults, settings),
-        xmlHttp = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");
+        xmlHttp = window.XMLHttpRequest ? new XMLHttpRequest() : new window.ActiveXObject("Microsoft.XMLHTTP");
     
     xmlHttp.onreadystatechange = function() {
         var s,
             params = {};
 
-        if (xmlHttp.readyState == 4 && xmlHttp.status == 200 && applySettings.success) {
+        if (xmlHttp.readyState === 4 && xmlHttp.status === 200 && applySettings.success) {
             s = applySettings.success;
         } else if(applySettings.error) {
             s = applySettings.error;
         }
         
         if(s) {
-            params = s.params;
-            if(xmlHttp.response) params[s.reply] = xmlHttp.response;
+            params = s.parameters;
+            if(xmlHttp.response) {
+                params[s.reply] = xmlHttp.response;
+            }
             s.fn.apply(s.scope ? s.scope : self, [params]);            
         }
         
         if(applySettings.always) {
-            params = applySettings.always.params;
-            if(xmlHttp.response) params[s.reply] = xmlHttp.response;
+            params = applySettings.always.parameters;
+            if(xmlHttp.response) {
+                params[s.reply] = xmlHttp.response;
+            }
             applySettings.always.fn.apply(applySettings.always.scope ? applySettings.always.scope : self, [params]);
         }
 

@@ -13,6 +13,7 @@ rpApp.Viewport = function(settings) {
     };
     
     this.views = {};
+    this.active = "";
 
     rpApp.Viewport.superclass.constructor.call(this, defaults, settings);
 };
@@ -42,10 +43,11 @@ rpApp.Viewport.prototype.render = function() {
     /* iterates through view list and adds them to container */
     for(i = 0, lth = views.length; i < lth; i++) {
         var obj = rpApp.create(views[i]);
-        // viewport.appendChild(obj.render());
         self.views[obj.settings.id] = obj;
     }
 
+    //todo: remove it;
+    viewport.appendChild(obj.render());
     // rpApp.create("BookList", {});
 
     document.body.innerHTML = "";

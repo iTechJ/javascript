@@ -31,5 +31,8 @@ html, body {
 .rp-view {
     border: solid 1px #ddd;
     box-shadow: inset 0px 0px 10px rgba(0,0,0,0.5);
-    /*height: 100%;*/
+}
+.rp-hidden {
+    display: none!important;
+    visibility: hidden!important;
 }
