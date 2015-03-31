@@ -32,6 +32,51 @@ html, body {
     border: solid 1px #ddd;
     box-shadow: inset 0px 0px 10px rgba(0,0,0,0.5);
 }
+.rp-container {
+	background: #DDDDDD;
+	padding: 0;
+	margin: 1em;
+}
+.rp-container:after {
+	display: table;
+	content: " ";
+}
+.rp-container > .rp-container-section {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	display: inline-block;
+	width: 100%!important;
+	float: left;
+	padding: 0.5em 1em; 
+}
+.rp-container.two > .rp-container-section {
+	width: 50%!important;
+}
+.rp-container.three > .rp-container-section {
+	width: 33.3333%!important;
+}
+.rp-container.four > .rp-container-section {
+	width: 25%!important;
+}
+.rp-container.five > .rp-container-section {
+	width: 20%!important;
+}
+.rp-container.six > .rp-container-section {
+	width: 16.6667%!important;
+}
+.rp-container.seven > .rp-container-section {
+	width: 14.2857%!important;
+}
+.rp-container.eight > .rp-container-section {
+	width: 12.5%!important;
+}
+.rp-container.nine > .rp-container-section {
+	width: 11.1111%!important;
+}
+.rp-container.ten > .rp-container-section {
+	width: 10%!important;
+}
 .rp-hidden {
     display: none!important;
     visibility: hidden!important;
