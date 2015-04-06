@@ -1,0 +1,16 @@
+.rp-error {
+    border: 1px solid red;
+}
+
+.rp-success {
+
+}
+
+.rp-modal {
+
+}
+
+.rp-component {
+    padding: 10px;
+    position: absolute;
+}
