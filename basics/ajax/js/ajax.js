@@ -1,6 +1,7 @@
 var rpAjax = {};
 
 rpAjax.get = function(path, callback, cached) {
+    "use strict";
     var xmlHttp;
     if (window.XMLHttpRequest) {
         /**
@@ -17,7 +18,7 @@ rpAjax.get = function(path, callback, cached) {
 
 
     xmlHttp.onreadystatechange = function() {
-        if (xmlHttp.readyState==4 && xmlHttp.status==200) {
+        if (xmlHttp.readyState===4 && xmlHttp.status===200) {
             callback(xmlHttp);
 //            document.getElementById("myDiv").innerHTML=xmlhttp.responseText;
         }

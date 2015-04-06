@@ -1,3 +1,4 @@
+/*globals console*/
 window.onload = function (){
     "use strict";
     var forEach = Array.prototype.forEach,
@@ -28,11 +29,11 @@ window.onload = function (){
     /**
      * Bubbling vs Capturing
      */
-    rpContainer3.addEventListener("click", function(e){
+    rpContainer3.addEventListener("click", function(){
         console.log("one");
     }, true);
 
-    rpContainer4.addEventListener("click", function(e){
+    rpContainer4.addEventListener("click", function(){
         console.log("two");
     }, true);
     

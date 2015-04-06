@@ -1,4 +1,6 @@
+/*globals rpAjax*/
 window.onload = function() {
+    "use strict";
     var button = document.getElementById("ajax"),
         container = document.getElementById("rpContainer");
 
