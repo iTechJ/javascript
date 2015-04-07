@@ -7,11 +7,28 @@ itechart.rpComponent = function (selector) {
 
     var self = this;
 
-    //self.forEach =
     self.componentList = document.querySelectorAll(selector);
 
-    Array.prototype.forEach.call(self.componentList, function(elt){
-        var header = document.createElement("h2"),
+    self.forEach(function(elt){
+        var container = render();
+        elt.appendChild(container);
+        subscribe(elt);
+    });
+
+    self._toggleVisibility = function(tag, show) {
+        var visible = "rp-visible",
+            component = tag.getElementsByClassName("rp-component")[0];
+        if(show) {
+            component.removeClassName("rp-hidden");
+            component.addClassName(visible);
+        } else {
+            component.removeClassName(visible);
+        }
+    };
+
+    function render(){
+        var container = document.createElement("div"),
+            header = document.createElement("h2"),
             body = document.createElement("p"),
             close = document.createElement("div");
 
@@ -19,23 +36,52 @@ itechart.rpComponent = function (selector) {
         close.textContent = "x";
         close.innerText = "x";
 
-        elt.className = elt.className + " rp-component";
-        elt.appendChild(header);
-        elt.appendChild(body);
-        elt.appendChild(close);
+        container.className += " rp-component";
+        container.appendChild(header);
+        container.appendChild(body);
+        container.appendChild(close);
 
-    });
+        return container;
+    }
+
+    function subscribe(elt){
+
+        var component = elt.getElementsByClassName("rp-component")[0];
+        elt.getElementsByClassName("rp-close").item(0).addEventListener("click", function() {
+            self._toggleVisibility(elt, false);
+        }, false);
+
+        component.addEventListener("transitionend", function(){
+            if(!this.hasClassName("rp-visible")) {
+                this.addClassName("rp-hidden");
+            }
+        }, false);
+    }
+
+    return self;
 };
 
-//rpApp.BaseComponent.prototype = {
-//    constructor: itechart.rpComponent,
-//
-//    show: function() {
-//        "use strict";
-//        throw "Component needs implementation!";
-//    }
-//
-//    hide: function(){
-//
-//    }
-//};
+itechart.rpComponent.prototype = {
+    constructor: itechart.rpComponent,
+
+    show: function() {
+        "use strict";
+        var self = this;
+        this.forEach(function(elt) {
+            self._toggleVisibility(elt, true);
+        });
+    },
+
+    hide: function(){
+        "use strict";
+        var self = this;
+        this.forEach(function(elt) {
+            self._toggleVisibility(elt, false);
+        });
+    },
+
+    forEach: function(f) {
+        "use strict";
+        Array.prototype.forEach.call(this.componentList, f);
+    }
+};
