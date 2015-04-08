@@ -4,12 +4,13 @@ itechart.rpComponent = function (selector) {
     if(!selector) {
         throw "No selector defined!";
     }
+    this.componentList = document.querySelectorAll(selector);
+};
 
-    var self = this;
+itechart.rpComponent.prototype = {
+    constructor: itechart.rpComponent,
 
-    self.componentList = document.querySelectorAll(selector);
-
-    self._toggleVisibility = function(tag, show) {
+    _toggleVisibility: function(tag, show) {
         var visible = "rp-visible",
             component = tag.getElementsByClassName("rp-component")[0];
         if(show) {
@@ -18,9 +19,9 @@ itechart.rpComponent = function (selector) {
         } else {
             component.removeClassName(visible);
         }
-    };
+    },
 
-    self._setMsg = function(tag, header, content) {
+    _setMsg: function(tag, header, content) {
         var tComponent = tag.getElementsByClassName("rp-component")[0],
             tHeader = tComponent.getElementsByTagName("h2")[0],
             tContent = tComponent.getElementsByClassName("rp-content")[0];
@@ -28,12 +29,7 @@ itechart.rpComponent = function (selector) {
         tHeader.innerText = header;
         tHeader.textContent = header;
         tContent.innerHTML = content;
-    };
-
-};
-
-itechart.rpComponent.prototype = {
-    constructor: itechart.rpComponent,
+    },
 
     show: function(header, content) {
         "use strict";
