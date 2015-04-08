@@ -1,3 +1,4 @@
+/*globals Ingredient, extend*/
 function Fish(name, price, esculent) {
     "use strict";
     Fish.superclass.constructor.call(this, name, price);
@@ -28,5 +29,6 @@ Fish.prototype.calcPrice = function() {
 };
 
 Fish.prototype.toString = function() {
+    "use strict";
     return Fish.superclass.toString.call(this) + ", " + this.esculent? "esculent": "not esculent";
 };

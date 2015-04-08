@@ -31,7 +31,6 @@ Element.prototype.hasClassName = function(name) {
 
 Element.prototype.addClassName = function(name) {
     "use strict";
-
     if (!this.hasClassName(name)) {
         this.className = this.className ? [this.className, name].join(' ') : name;
     }

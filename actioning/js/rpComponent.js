@@ -9,12 +9,6 @@ itechart.rpComponent = function (selector) {
 
     self.componentList = document.querySelectorAll(selector);
 
-    self.forEach(function(elt){
-        var container = render();
-        elt.appendChild(container);
-        subscribe(elt);
-    });
-
     self._toggleVisibility = function(tag, show) {
         var visible = "rp-visible",
             component = tag.getElementsByClassName("rp-component")[0];
@@ -26,7 +20,62 @@ itechart.rpComponent = function (selector) {
         }
     };
 
-    function render(){
+    self._setMsg = function(tag, header, content) {
+        var tComponent = tag.getElementsByClassName("rp-component")[0],
+            tHeader = tComponent.getElementsByTagName("h2")[0],
+            tContent = tComponent.getElementsByClassName("rp-content")[0];
+
+        tHeader.innerText = header;
+        tHeader.textContent = header;
+        tContent.innerHTML = content;
+    };
+
+};
+
+itechart.rpComponent.prototype = {
+    constructor: itechart.rpComponent,
+
+    show: function(header, content) {
+        "use strict";
+        var self = this;
+        this.forEach(function(elt) {
+            self._toggleVisibility(elt, true);
+            if(header || content) {
+                self._setMsg(elt, header, content);
+            }
+        });
+    },
+
+    hide: function(preserveMsg){
+        "use strict";
+        var self = this;
+
+        this.forEach(function(elt) {
+            self._toggleVisibility(elt, false);
+            if(!preserveMsg) {
+                self._setMsg(elt, "", "");
+            }
+
+        });
+    },
+
+    _subscribe: function(elt){
+        "use strict";
+        var self = this,
+            component = elt.getElementsByClassName("rp-component")[0];
+
+        elt.getElementsByClassName("rp-close").item(0).addEventListener("click", function() {
+            self._toggleVisibility(elt, false);
+        }, false);
+        component.addEventListener("transitionend", function(){
+            if(!this.hasClassName("rp-visible")) {
+                this.addClassName("rp-hidden");
+            }
+        }, false);
+    },
+
+    _render: function(){
+        "use strict";
         var container = document.createElement("div"),
             header = document.createElement("h2"),
             body = document.createElement("p"),
@@ -35,6 +84,7 @@ itechart.rpComponent = function (selector) {
         close.className = "rp-close";
         close.textContent = "x";
         close.innerText = "x";
+        body.className = "rp-content";
 
         container.className += " rp-component";
         container.appendChild(header);
@@ -42,42 +92,6 @@ itechart.rpComponent = function (selector) {
         container.appendChild(close);
 
         return container;
-    }
-
-    function subscribe(elt){
-
-        var component = elt.getElementsByClassName("rp-component")[0];
-        elt.getElementsByClassName("rp-close").item(0).addEventListener("click", function() {
-            self._toggleVisibility(elt, false);
-        }, false);
-
-        component.addEventListener("transitionend", function(){
-            if(!this.hasClassName("rp-visible")) {
-                this.addClassName("rp-hidden");
-            }
-        }, false);
-    }
-
-    return self;
-};
-
-itechart.rpComponent.prototype = {
-    constructor: itechart.rpComponent,
-
-    show: function() {
-        "use strict";
-        var self = this;
-        this.forEach(function(elt) {
-            self._toggleVisibility(elt, true);
-        });
-    },
-
-    hide: function(){
-        "use strict";
-        var self = this;
-        this.forEach(function(elt) {
-            self._toggleVisibility(elt, false);
-        });
     },
 
     forEach: function(f) {
